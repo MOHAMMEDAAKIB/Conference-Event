@@ -1,0 +1,45 @@
+/* Background container */
+#bagground {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #FFFAFA;
+    margin: 0;
+}
+
+/* Form container */
+#fild {
+    width: 600px;
+    height: 500px;
+    padding: 20px;
+    background-color: #C0E0ED;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    text-align: center;
+}
+
+/* QR code container */
+#qrbox {
+    padding: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+/* QR image styling */
+#qrimage {
+    width: 175px;
+    height: 175px;
+    border: 2px solid #007BFF;
+    border-radius: 5px;
+}
+
+/* Message styling */
+#massage p {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+    margin: 0;
+}

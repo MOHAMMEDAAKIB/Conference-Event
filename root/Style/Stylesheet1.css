@@ -1,0 +1,289 @@
+@import url('https://fonts.googleapis.com/css?family=Quicksand:400,700');
+
+body {
+  width: 1500pxS;
+  background: #f0f8ea;
+  font-family: 'QuickSand',sans-serif;
+}
+
+button{
+  --bs-btn-padding-y: .25rem; 
+  --bs-btn-padding-x: .5rem; 
+  margin-left: 30px;
+}
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 20px 120px;
+  background: #11141a;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 100;
+}
+
+
+.logo {
+  font-size: 25px;
+  color: #fff;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+nav a {
+  font-size: 18px;
+  color: #fff;
+  text-decoration: none;
+  font-weight: 500;
+  margin-left: 35px;
+  transition: .3s;
+}
+nav a:hover,
+nav a.active {
+  color: #209CD2;
+}
+section {
+  min-height: 100vh;
+  align-items: center;
+  background: #FFFAFA;
+}
+section:nth-child(odd) {
+  background: #FFFAFA;
+}
+
+/*content abou page*/
+.content_about{
+  width: 100%;
+  height: 500px;
+  background-color:#FFFAFA ;
+}
+#date{
+  color: #45454b;
+  margin-top: 10%;
+  margin-left: 10%;
+  display: inline-block;
+  font-weight: normal;
+}
+/* text abot confrance */
+.thort{
+  display: inline-block;
+  width: 65%;
+  height: 300px;
+  margin-left: 10%;
+  margin-top: 3%;
+}
+.thort h1{
+ font-size: 30px;
+ 
+}
+/* conferance hall image section */
+.image-box{
+  width: 100%;
+  height: 100vh;
+  background-image: url(../image/conferance_blu_hall.jpg) ;
+  background-size: 100% 100%;
+}
+
+
+
+/* about section*/
+
+.about_section{
+  background-color:#FFFAFA ;
+  width: 100%;
+  height: 600px;
+
+}
+.leftside_set{
+  margin-left: 6%;
+  margin-top: 10%;
+
+}
+.leftside_set h3{
+  font-size: 16px;
+  color: #25252e;
+}
+
+.leftside_set h1{
+  margin-bottom: 30px;
+
+}
+.leftside_set p{
+  font-size: medium;
+}
+
+.where{
+  display: inline-block;
+  width: 48%;
+  margin: 0;
+  text-align: left;
+}
+.where h2{
+  margin-top: 20px;
+
+}
+.when{
+  display: inline-block;
+  width: 48%;
+  margin: 0;
+  text-align: left;
+}
+
+.leftside_set{
+  display: inline-block;
+  width: 55%;
+  
+}
+
+.leftside_set{
+  font-size: 20px;
+}
+
+.rightside_set{
+  display: inline-block;
+  width:30%;
+  
+}
+.about2 p{
+  padding-bottom: 10px;
+  
+}
+.about2 button{
+  float: right;
+}
+
+
+/* sedule set style*/
+.event_sedul{
+  width: 100%;
+  height: auto;
+  background-color: #FFFAFA;
+}
+.event_sedul h1{
+  padding-left: 6%;
+  padding-top:10%;
+  padding-bottom: 5%;
+}
+.event_table{
+  margin-left: 6%;
+  
+}
+.card mb-3{
+  align-items: left;
+  text-align: left;
+}
+.card-body p{
+  font-size: medium;
+}
+
+/* Speekers */
+.speekers{
+  width: 100%;
+  height: 500px;
+  background-color:#FFFAFA ;
+}
+.speekers h1{
+  margin-left: 6%;
+}
+
+
+/* speekers*/
+.speekers{
+  display: inline-block;
+  margin: 0%;
+  padding: 0%;
+}
+.speekers h1{
+  padding-top:6%;
+  padding-bottom: 4%;
+}
+.card2{
+  margin: 0%;
+  padding: 0%;
+  display: inline-block;
+  width: 250px;
+  height: 300px;
+
+}
+
+/* ticket section*/
+.tiket{
+  width: 100%;
+  height: 100vh;
+  background-image: url(../image/tiket_baground.jpg) ;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: 100% 100%;
+  
+}
+#pera1{
+  padding-top: 150px;
+  text-align: center;
+  font-size: 16px;
+  color: #50bceb;
+}
+.tiket h2{
+  margin-top: 7px;
+  text-align: center;
+  color: #FFFAFA;
+}
+.tiket p{
+  text-align: center;
+  justify-self: center;
+}
+
+#pera2{
+  margin-top: 25px;
+  text-align: center;
+  color: #FFFAFA;
+  width: 600px;
+  height: auto
+  
+ 
+}
+
+
+@media only screen and (min-width: 700px){
+  .menu-toggle {
+    display: none;
+  }
+  
+  .main-nav {
+    height: auto;
+    position: relative;
+    background: transparent;
+    float: right;
+  }
+  
+  .main-nav li {
+    display: inline-block;
+    border: none;
+  }
+  
+  .main-nav a {
+    padding: 0;
+    margin-left: 2em;
+  }
+  
+  .main-nav a:hover,.main-nav a:focus {
+    background: transparent;
+  }
+  
+  .nav-icon {
+    display: none;
+  }
+
+  .thort h1{
+    font-size: 45px;
+  }
+
+
+ 
+
+
+
+  
+  
+}
