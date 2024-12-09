@@ -1,0 +1,119 @@
+/* Reset margin and padding */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+/* Center content */
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-image: url('../image/cham_baground.jpg');
+    background-size: cover;
+
+
+
+}
+
+/* Container styling */
+#content {
+    background: transparent;
+    border-radius: 10px;
+    backdrop-filter: blur(10px);
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    width: 100%;
+    max-width: 500px;
+    text-align: center;
+}
+
+/* Heading style */
+#loging {
+    font-size: 24px;
+    color: #ffffff;
+    margin-bottom: 20px;
+}
+#heading{
+    color:#FFFAFA;
+    
+}
+
+/* Input fields */
+input[type="text"], input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin: 8px 0;
+    border: 1px solid #ddd;
+    border-bottom-left-radius: 25px;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+    font-size: 16px;  
+}
+.input-container {
+    position: relative;
+    width: 100%;
+    max-width: 500px;
+    margin: 10px 0;
+}
+.input-container input {
+    width: 100%;
+    padding: 10px 40px; /* Add padding to make space for the icon */
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-bottom-left-radius: 25px;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+}
+.input-container .icon {
+    position: absolute;
+    top: 50%;
+    left: 10px;
+    transform: translateY(-50%);
+    color: #171710;
+    font-size: 18px;
+}
+
+/* Button styling */
+#Loging {
+    width: 100%;
+    padding: 10px;
+    background-color: #171710;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+#Loging:hover {
+    background-color: #707370;
+}
+
+/* Links and additional text */
+#fogpass, #register {
+    margin-top: 15px;
+    font-size: 14px;
+}
+
+/* Link styling */
+#fogpass a, #register {
+    color: #B0B7C0;
+    text-decoration: none;
+    cursor: pointer;
+}
+#fogpass a:hover, #register:hover {
+    text-decoration: underline;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    #content {
+        padding: 15px;
+        width: 90%;
+    }
+}
+
