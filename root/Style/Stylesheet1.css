@@ -82,7 +82,7 @@ section:nth-child(odd) {
 .image-box{
   width: 100%;
   height: 100vh;
-  background-image: url(../image/conferance_blu_hall.jpg) ;
+  background-image: url(../image/conferance_blu_hall.jpg);
   background-size: 100% 100%;
 }
 
@@ -156,8 +156,11 @@ section:nth-child(odd) {
 
 
 /* sedule set style*/
+.table{
+  display: block;
+}
 .event_sedul{
-  width: 100%;
+  width:100%;
   height: auto;
   background-color: #FFFAFA;
 }
@@ -167,15 +170,16 @@ section:nth-child(odd) {
   padding-bottom: 5%;
 }
 .event_table{
-  margin-left: 6%;
-  
+  display: inline-block;
+  width:300px;
+  margin-left: 3%;
 }
 .card mb-3{
   align-items: left;
   text-align: left;
 }
 .card-body p{
-  font-size: medium;
+  font-size: 8%;
 }
 
 /* Speekers */
@@ -185,10 +189,11 @@ section:nth-child(odd) {
   background-color:#FFFAFA ;
 }
 .speekers h1{
+  margin-top: 6%;
   margin-left: 6%;
 }
 .organize_event{
-  color: #7a7a9c;
+  color: #000000;
   font-size: 16px;
   text-decoration: none;
   padding-top: 20%;
@@ -212,17 +217,24 @@ section:nth-child(odd) {
   display: inline-block;
   width: 250px;
   height: 300px;
+  justify-content: center;
+  align-items: center;
 
 }
+
+  
+
+
 
 /* ticket section*/
 .tiket{
   width: 100%;
   height: 100vh;
-  background-image: url(../image/tiket_baground.jpg) ;
+  background-image: url(../image/tiket_baground.jpg);
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-size: 100% 100%;
+ 
   
 }
 #pera1{
@@ -285,11 +297,5 @@ section:nth-child(odd) {
     font-size: 45px;
   }
 
-
- 
-
-
-
-  
   
 }
