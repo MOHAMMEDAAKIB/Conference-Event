@@ -8,62 +8,38 @@ $(function(){
     });
 })    
     
-
-
-// Improved passarry with error handling
-function passarry(dataArray) {
-    const formData = new FormData();
-    formData.append("array", JSON.stringify(dataArray));
-
-    return fetch("chak.php", {
-        method: "POST", 
-        body: formData, 
-    })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error("Server responded with status " + response.status);
-            }
-            return response.text();
-        })
-        .then(data => {
-            console.log("Response from PHP:", data);
-        })
-        .catch(error => {
-            console.error("Error:", error);
-            alert("Failed to send data to the server.");
-        });
+function domReady(fn) {
+    if (
+        document.readyState === "complete" ||
+        document.readyState === "interactive"
+    ) {
+        setTimeout(fn, 1000);
+    } else {
+        document.addEventListener("DOMContentLoaded", fn);
+    }
 }
 
-// Improved startCameraScan with better error handling
-function startCameraScan() {
-    qrReaderElement.style.display = "block"; 
+domReady(function () {
 
-    const html5QrCode = new Html5Qrcode("qr-reader");
+    // If found you qr code
+    function onScanSuccess(decodeText, decodeResult) {
+        alert("You QR is: " + decodeText + ", Result: " + decodeResult);
+        document.getElementById('data').value = decodeText;
+        let dataset = decodeText.split(" "); 
+        let name = dataset[0];
+        let phone = dataset[1];
+        let email = dataset[2];
+        let address = dataset[3];
+        document.cookie = "data1=" + name;
+        document.cookie = "data2=" + phone;
+        document.cookie = "data3=" + email;
+        document.cookie = "data4=" + address;
+    }
+    
 
-    html5QrCode
-        .start(
-            { facingMode: "environment" },
-            { fps: 10, qrbox: 250 },
-            (decodedText) => {
-                const dataArray = decodedText.split(" ");
-                passarry(dataArray)
-                    .then(() => {
-                        alert("QR code data successfully sent to the server.");
-                        location.replace("chak.php");
-                    })
-                    .catch(() => {
-                        alert("Error occurred while processing QR code data.");
-                    })
-                    .finally(() => {
-                        html5QrCode.stop();
-                    });
-            },
-            (error) => {
-                console.warn("Error scanning:", error);
-            }
-        )
-        .catch((err) => {
-            console.error("Unable to start QR code scanner:", err);
-            alert("Failed to open camera.");
-        });
-}
+    let htmlscanner = new Html5QrcodeScanner(
+        "my-qr-reader",
+        { fps: 10, qrbos: 250 }
+    );
+    htmlscanner.render(onScanSuccess);
+});

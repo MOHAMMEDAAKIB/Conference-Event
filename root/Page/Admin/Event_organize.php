@@ -57,7 +57,7 @@
                     <a href="#Speakers"><i class="fa fa-fw fa-paper-plane-o"></i>Speakers</a>
                 </li>
                 <li>
-                    <a href="../attandence"><i class="fa fa-fw fa fa-question-circle"></i> Attendance</a>
+                    <a href="#Attendance"><i class="fa fa-fw fa fa-question-circle"></i> Attendance</a>
                 </li>
             </ul>
         </div>
@@ -111,7 +111,7 @@
                                     <form method="post" action="Day/Day1.php" enctype="multipart/form-data">
                                         <h3>Day 1</h3>
                                         <label for="time"> Time:</label>
-                                        <input type="text" name="time" required><select name="AM_PM" required><option value="AM">AM</option><option value="PM">PM</option></select>
+                                        <input type="text" name="time" required><select name="AM_PM" ><option value="AM">AM</option><option value="PM">PM</option></select>
                                         <label for="Event_title">Event title:</label>
                                         <input type="text" name="Event_title"required>
 
@@ -200,38 +200,30 @@
                     </div>  
                 </section> 
                 <section id="Attendance"> 
-                    <center>
-                    <div class="detatil" Style="  padding-top:6%;">
-                        <h1>Mark attendance</h1>
-                        <div class="qrCodeView">      
-                        <input type="file" accept="image/*" id="fileInput" hidden>
-                    
-                        <div id="qr-reader" style="width: 48%; display: none;"></div>
-                        <video id="qrVideo" style="display: none;" autoplay></video>
-                        
-                        <!-- Icon Group for Upload and Scan -->
-                        <div class="iconGroup">
-                            <!-- Upload Icon -->    
-                            <i class="bi bi-upload" onclick="document.getElementById('fileInput').click();" title="Upload QR Code">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-upload" viewBox="0 0 16 16">
-                                    <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5"/>
-                                    <path d="M7.646 1.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 2.707V11.5a.5.5 0 0 1-1 0V2.707L5.354 4.854a.5.5 0 1 1-.708-.708z"/>
-                                </svg>
-                            </i>
-                            
-                            <!-- QR Code Scan Icon -->
-                            <i class="bi bi-qr-code-scan" title="Scan QR Code" onclick="window.location.replace('qrreader.php')">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-qr-code-scan" viewBox="0 0 16 16">
-                                    <path d="M0 .5A.5.5 0 0 1 .5 0h3a.5.5 0 0 1 0 1H1v2.5a.5.5 0 0 1-1 0zm12 0a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-1 0V1h-2.5a.5.5 0 0 1-.5-.5M.5 12a.5.5 0 0 1 .5.5V15h2.5a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5v-3a.5.5 0 0 1 .5-.5m15 0a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1 0-1H15v-2.5a.5.5 0 0 1 .5-.5M4 4h1v1H4z"/>
-                                    <path d="M7 2H2v5h5zM3 3h3v3H3zm2 8H4v1h1z"/>
-                                    <path d="M7 9H2v5h5zm-4 1h3v3H3zm8-6h1v1h-1z"/>
-                                    <path d="M9 2h5v5H9zm1 1v3h3V3zM8 8v2h1v1H8v1h2v-2h1v2h1v-1h2v-1h-3V8zm2 2H9V9h1zm4 2h-1v1h-2v1h3zm-4 2v-1H8v1z"/>
-                                    <path d="M12 9h2V8h-2z"/>
-                                </svg>
-                            </i>
+                    <div class="detatil">
+                        <Center>
+                        <h1>Mark attendance</h1><!-- this section get from internet--></Center>
+                        <form id="attandence" method="post" action="attandendence.php">
+                            <div id="data"></div>
+                            <button type="submit" onclick=""> ok</button>
+                        </form><Center>
+                        <div class="container">
+                            <div class="section">
+                                <div id="my-qr-reader">
+                                </div>
+                            </div>
                         </div>
-                    </div></center>
+                    </div>
+                    <div class="buffer" ></div>
+                    
+                        </Center>
+                        
+                        <script
+                            src="https://unpkg.com/html5-qrcode">
+                        </script>
+
                         <script src="../../Script/scannerscript.js"></script>
+                    
                 </section>       
             </div>
             <!-- /.row -->
@@ -285,6 +277,8 @@
             echo "No file uploaded. Please try again.";
         }
     }
+    
+    
 
 ?>  
   
