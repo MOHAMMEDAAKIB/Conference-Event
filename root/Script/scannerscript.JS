@@ -1,3 +1,9 @@
+$(document).ready(function() {
+    $('[data-toggle="tooltip"]').tooltip();
+});
+
+
+
 $(function(){
     $('[data-toggle="tooltip"]').tooltip();
     $(".side-nav .collapse").on("hide.bs.collapse", function() {                   
@@ -43,3 +49,4 @@ domReady(function () {
     );
     htmlscanner.render(onScanSuccess);
 });
+

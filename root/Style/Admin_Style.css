@@ -183,13 +183,48 @@ section:nth-child(odd) {
 
 
 
+.content12{
+  width: 100%;
+  height: 100vh;
+  background-color:#FFFAFA;
+  margin: 0px;
+}
+.chart{
+  display: inline-block;
+  width: 25%;
+  height: auto;
+  background-color:#FFFAFA;
+  margin-top: 8%;
+  
+}
+.chart h3{
+  text-transform: uppercase;
+  text-align:center;
+  background: linear-gradient(to right,#dd34cf,#7126c7,#2534bb,#7126c7,#d430c7);
+  background-size: 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: animate-gradient 2.5s linear infinite;
+}
+@keyframes animate-gradient{
+  to{
+    background-position: 100px;
+
+  }
+}
+.attandeandencetable{
+  margin-top: 4%;
+  padding: 0%;
+  display: inline-block;
+  width: 73%;
+  height: auto;
+  background-color:#FFFAFA;
+  margin-left: 0%;
+  padding-left: 2%;
 
 
-
-
-
-
-
+}
 
 /* sample about section*/
  .buffer{
@@ -200,6 +235,7 @@ section:nth-child(odd) {
   width: 100%;
   height: 400px;
   margin: 10%;
+  margin-top: 8%;
   margin-right: 0%;
   background-size: cover;
   display: inline-block;
@@ -207,7 +243,22 @@ section:nth-child(odd) {
 .detatil h1{
   text-align: center;
   font-size: 30px;
-  margin: 5%;
+  margin: 2%;
+  text-transform: uppercase;
+  text-align:center;
+  font-size: 40px;
+  background: linear-gradient(to right,#dd34cf,#7126c7,#2534bb,#7126c7,#d430c7);
+  background-size: 200%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: animate-gradient 2.5s linear infinite;
+}
+@keyframes animate-gradient{
+  to{
+    background-position: 200px;
+    
+  }
 }
 .detatil button{
   width: 80px;
@@ -233,7 +284,21 @@ section:nth-child(odd) {
 }
 .about_Event h2{
   margin: 10%;
-  
+  text-transform: uppercase;
+  text-align:center;
+  font-size: 40px;
+  background: linear-gradient(to right,#dd34cf,#7126c7,#2534bb,#7126c7,#d430c7);
+  background-size: 200%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: animate-gradient 2.5s linear infinite;
+}
+@keyframes animate-gradient{
+  to{
+    background-position: 200px;
+    
+  }
 }
 .plase{
   width: 200px;
@@ -247,7 +312,21 @@ section:nth-child(odd) {
 .event_form h2{
   padding: 8%;
   padding-bottom: 0%;
-
+  text-transform: uppercase;
+  text-align:center;
+  font-size: 40px;
+  background: linear-gradient(to right,#dd34cf,#7126c7,#2534bb,#7126c7,#d430c7);
+  background-size: 200%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: animate-gradient 2.5s linear infinite;
+}
+@keyframes animate-gradient{
+  to{
+    background-position: 200px;
+    
+  }
 }
 /* speekers*/
 .speeker_update{
@@ -256,6 +335,21 @@ section:nth-child(odd) {
 h2{
   padding: 10%;
   padding: 0%;
+  text-transform: uppercase;
+  text-align:center;
+  font-size: 40px;
+  background: linear-gradient(to right,#dd34cf,#7126c7,#2534bb,#7126c7,#d430c7);
+  background-size: 200%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: animate-gradient 2.5s linear infinite;
+}
+@keyframes animate-gradient{
+  to{
+    background-position: 200px;
+    
+  }
 }
 .speeker_update h2{
   margin: 10%;

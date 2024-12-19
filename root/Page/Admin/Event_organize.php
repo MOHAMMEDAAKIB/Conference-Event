@@ -8,7 +8,10 @@
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <link href="../../Style/Admin_Style.css" rel="stylesheet">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js"></script>
     <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
 </head>
 <body>
 
@@ -70,16 +73,73 @@
              <section id="organize">
                 <div class="row" id="main" >
                     <section id="organize">
-                        <div class="buffer"></div>
-                            <div class="detatil">
-                                <h1>Event Details</h1>
-                                <div class="Db_fach">
-                                    <p>Total participants:</p>
-                                    <p>Available sheets: 500 </p>
-                                    <p>Remaining Days: 4</p>
+                        <div class="detatil">
+                            <h1>Event Details</h1>
+                            <div class="content12">
+                                <div class="chart">
+                                        <h3>Event Update </h3>
+                                        <p>Allocated seets: <samp id="seetCount121"></c></p>
+                                        <p>Total QR Isus: <samp id="seetCount">50</></p>
+                                        <p>Currant attandence: <samp id="seetCount">50</></p></br></br></br>
+
+                                        <p>Set for new event</p>
+                                        <label>Ineeatial seet count: </label>
+                                        <input type="number" id="initialseets">
+                                        <input type="submit" name="submit" value="save" onclick="setInitialseet()" style="  background-color:rgb(115, 171, 245);">
+                                        <script>
+                                            function setInitialseet(){
+                                                var totalseet = document.getElementById('initialseets').value;
+                                                document.getElementById('seetCount121').innerHTML = totalseet;
+                                            }
+                                        </script>
                                 </div>
-                                <button>Add</button>
-                            </div>
+                                <div class="attandeandencetable">
+                                    <table class="table table-hover">
+                                        <thead>
+                                            <th>Name</th>
+                                            <th>Attand time</th>
+                                            <th>Email</th>
+                                        </thead>
+                                        <tbody>
+                                        <?php
+                                            // Database connection
+                                            $connect = mysqli_connect('localhost', 'root', '', 'event_managment_db');
+
+                                            // Check database connection
+                                            if (!$connect) {
+                                                die('Connection failed: ' . mysqli_connect_error());
+                                            }
+
+                                            // Correct the SQL query (use backticks instead of single quotes for the table name)
+                                            $sql = "SELECT * FROM `attandence`";
+
+                                            // Execute the query
+                                            $result = $connect->query($sql);
+
+                                            // Check if there are rows returned
+                                            if ($result && $result->num_rows > 0) {
+                                                while ($row = $result->fetch_assoc()) {
+                                                    echo ("
+                                                        <tr>
+                                                            <td>" . htmlspecialchars($row['Name']) . "</td>
+                                                            <td>" . htmlspecialchars($row['time-in']) . "</td>
+                                                            <td>" . htmlspecialchars($row['Email']) . "</td>
+                                                        </tr>
+                                                    ");
+                                                }
+                                            } else {
+                                                echo ("<p>No attendance records found.</p>");
+                                            }
+
+                                            // Close the database connection
+                                            $connect->close();
+                                            ?>
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>      
+                        </div>
                 </section>
                 <section id="about" style="  background-color: #FFFAFA;">
                     <div class="about_Event" >
