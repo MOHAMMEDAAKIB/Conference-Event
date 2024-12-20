@@ -78,14 +78,87 @@
                             <div class="content12">
                                 <div class="chart">
                                         <h3>Event Update </h3>
-                                        <p>Allocated seets: <samp id="seetCount121"></c></p>
-                                        <p>Total QR Isus: <samp id="seetCount">50</></p>
-                                        <p>Currant attandence: <samp id="seetCount">50</></p></br></br></br>
+                                        <?php 
+                                            $connect = mysqli_connect('localhost', 'root', '', 'event_managment_db');
+                                            if (!$connect) {  
+                                                die("Connection failed: " . mysqli_connect_error());
+                                            } else {
+                                                // Queries to count rows in tables
+                                                $QRcount = "SELECT COUNT(*) AS row_count FROM customers_details";
+                                                $attanCount = "SELECT COUNT(*) AS row_count FROM attandence";
+
+                                                // Execute queries and fetch row counts
+                                                $result1 = $connect->query($QRcount);
+                                                $result2 = $connect->query($attanCount);
+
+                                                if ($result1 && $result2) {
+                                                    $row1 = $result1->fetch_assoc();
+                                                    $row2 = $result2->fetch_assoc();
+
+                                                    // Check if a row already exists in `event_attandedence_detatil`
+                                                    $checkQuery = "SELECT * FROM event_attandedence_detatil LIMIT 1";
+                                                    $checkResult = $connect->query($checkQuery);
+
+                                                    if ($checkResult->num_rows > 0) {
+                                                        // Update existing row without changing `avilable_seet`
+                                                        $updateQuery = "
+                                                            UPDATE event_attandedence_detatil
+                                                            SET qrcunt = '".$row1['row_count']."', attended_seet = '".$row2['row_count']."'
+                                                        ";
+                                                        if (!mysqli_query($connect, $updateQuery)) {
+                                                            echo "Error updating data: " . mysqli_error($connect);
+                                                        }
+                                                    } else {
+                                                        // Insert new row (only if no data exists)
+                                                        $insertQuery = "
+                                                            INSERT INTO event_attandedence_detatil (qrcunt, attended_seet) 
+                                                            VALUES ('".$row1['row_count']."', '".$row2['row_count']."')
+                                                        ";
+                                                        if (!mysqli_query($connect, $insertQuery)) {
+                                                            echo "Error inserting data: " . mysqli_error($connect);
+                                                        }
+                                                    }
+
+                                                    // Calculate the total number of rows
+                                                    $countQuery = "SELECT COUNT(*) AS total_rows FROM event_attandedence_detatil";
+                                                    $countResult = $connect->query($countQuery);
+
+                                                    if ($countResult && $countResult->num_rows > 0) {
+                                                        $countRow = $countResult->fetch_assoc();
+                                                        $totalRows = $countRow['total_rows'];
+
+                                                        // Fetch the last row using LIMIT and OFFSET
+                                                        $sql1 = "SELECT * FROM `event_attandedence_detatil` LIMIT 1 OFFSET " . ($totalRows - 1);
+                                                        $result5 = $connect->query($sql1);
+
+                                                        if ($result5->num_rows > 0) {
+                                                            $row = $result5->fetch_assoc();
+                                                            echo '<p>Allocated seats: <samp id="seetCount121">'.htmlspecialchars($row['avilable_seet']).'</samp></p>';
+                                                            echo '<p>Total QR Issues: <samp id="seetCount">'.htmlspecialchars($row['qrcunt']).'</samp></p>';
+                                                            echo '<p>Current attendance: <samp id="seetCount">'.htmlspecialchars($row['attended_seet']).'</samp></p><br><br><br>';
+                                                        } else {
+                                                            echo "<p>No data found in event_attandedence_detatil.</p>";
+                                                        }
+                                                    } else {
+                                                        echo "Error fetching row count.";
+                                                    }
+                                                } else {
+                                                    echo "Error executing queries.";
+                                                }
+                                            }
+
+                                            // Close the database connection
+                                            mysqli_close($connect);
+                                            ?>
+
+
 
                                         <p>Set for new event</p>
-                                        <label>Ineeatial seet count: </label>
-                                        <input type="number" id="initialseets">
-                                        <input type="submit" name="submit" value="save" onclick="setInitialseet()" style="  background-color:rgb(115, 171, 245);">
+                                        <form action="setseet.php" method="Post">
+                                            <label>Ineeatial seet count: </label>
+                                            <input type="number" id="initialseets" name="initialseets">
+                                            <input type="submit" name="submit" value="save" onclick="setInitialseet()" style="  background-color:rgb(115, 171, 245);">
+                                        </form>
                                         <script>
                                             function setInitialseet(){
                                                 var totalseet = document.getElementById('initialseets').value;
