@@ -8,7 +8,10 @@
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <link href="../../Style/Admin_Style.css" rel="stylesheet">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js"></script>
     <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
 </head>
 <body>
 
@@ -57,7 +60,7 @@
                     <a href="#Speakers"><i class="fa fa-fw fa-paper-plane-o"></i>Speakers</a>
                 </li>
                 <li>
-                    <a href="../attandence"><i class="fa fa-fw fa fa-question-circle"></i> Attendance</a>
+                    <a href="#Attendance"><i class="fa fa-fw fa fa-question-circle"></i> Attendance</a>
                 </li>
             </ul>
         </div>
@@ -70,16 +73,146 @@
              <section id="organize">
                 <div class="row" id="main" >
                     <section id="organize">
-                        <div class="buffer"></div>
-                            <div class="detatil">
-                                <h1>Event Details</h1>
-                                <div class="Db_fach">
-                                    <p>Total participants:</p>
-                                    <p>Available sheets: 500 </p>
-                                    <p>Remaining Days: 4</p>
+                        <div class="detatil">
+                            <h1>Event Details</h1>
+                            <div class="content12">
+                                <div class="chart">
+                                        <h3>Event Update </h3>
+                                        <?php 
+                                            $connect = mysqli_connect('localhost', 'root', '', 'event_managment_db');
+                                            if (!$connect) {  
+                                                die("Connection failed: " . mysqli_connect_error());
+                                            } else {
+                                                // Queries to count rows in tables
+                                                $QRcount = "SELECT COUNT(*) AS row_count FROM customers_details";
+                                                $attanCount = "SELECT COUNT(*) AS row_count FROM attandence";
+
+                                                // Execute queries and fetch row counts
+                                                $result1 = $connect->query($QRcount);
+                                                $result2 = $connect->query($attanCount);
+
+                                                if ($result1 && $result2) {
+                                                    $row1 = $result1->fetch_assoc();
+                                                    $row2 = $result2->fetch_assoc();
+
+                                                    // Check if a row already exists in `event_attandedence_detatil`
+                                                    $checkQuery = "SELECT * FROM event_attandedence_detatil LIMIT 1";
+                                                    $checkResult = $connect->query($checkQuery);
+
+                                                    if ($checkResult->num_rows > 0) {
+                                                        // Update existing row without changing `avilable_seet`
+                                                        $updateQuery = "
+                                                            UPDATE event_attandedence_detatil
+                                                            SET qrcunt = '".$row1['row_count']."', attended_seet = '".$row2['row_count']."'
+                                                        ";
+                                                        if (!mysqli_query($connect, $updateQuery)) {
+                                                            echo "Error updating data: " . mysqli_error($connect);
+                                                        }
+                                                    } else {
+                                                        // Insert new row (only if no data exists)
+                                                        $insertQuery = "
+                                                            INSERT INTO event_attandedence_detatil (qrcunt, attended_seet) 
+                                                            VALUES ('".$row1['row_count']."', '".$row2['row_count']."')
+                                                        ";
+                                                        if (!mysqli_query($connect, $insertQuery)) {
+                                                            echo "Error inserting data: " . mysqli_error($connect);
+                                                        }
+                                                    }
+
+                                                    // Calculate the total number of rows
+                                                    $countQuery = "SELECT COUNT(*) AS total_rows FROM event_attandedence_detatil";
+                                                    $countResult = $connect->query($countQuery);
+
+                                                    if ($countResult && $countResult->num_rows > 0) {
+                                                        $countRow = $countResult->fetch_assoc();
+                                                        $totalRows = $countRow['total_rows'];
+
+                                                        // Fetch the last row using LIMIT and OFFSET
+                                                        $sql1 = "SELECT * FROM `event_attandedence_detatil` LIMIT 1 OFFSET " . ($totalRows - 1);
+                                                        $result5 = $connect->query($sql1);
+
+                                                        if ($result5->num_rows > 0) {
+                                                            $row = $result5->fetch_assoc();
+                                                            echo '<p>Allocated seats: <samp id="seetCount121">'.htmlspecialchars($row['avilable_seet']).'</samp></p>';
+                                                            echo '<p>Total QR Issues: <samp id="seetCount">'.htmlspecialchars($row['qrcunt']).'</samp></p>';
+                                                            echo '<p>Current attendance: <samp id="seetCount">'.htmlspecialchars($row['attended_seet']).'</samp></p><br><br><br>';
+                                                        } else {
+                                                            echo "<p>No data found in event_attandedence_detatil.</p>";
+                                                        }
+                                                    } else {
+                                                        echo "Error fetching row count.";
+                                                    }
+                                                } else {
+                                                    echo "Error executing queries.";
+                                                }
+                                            }
+
+                                            // Close the database connection
+                                            mysqli_close($connect);
+                                            ?>
+
+
+
+                                        <p>Set for new event</p>
+                                        <form action="setseet.php" method="Post">
+                                            <label>Ineeatial seet count: </label>
+                                            <input type="number" id="initialseets" name="initialseets">
+                                            <input type="submit" name="submit" value="save" onclick="setInitialseet()" style="  background-color:rgb(115, 171, 245);">
+                                        </form>
+                                        <script>
+                                            function setInitialseet(){
+                                                var totalseet = document.getElementById('initialseets').value;
+                                                document.getElementById('seetCount121').innerHTML = totalseet;
+                                            }
+                                        </script>
                                 </div>
-                                <button>Add</button>
-                            </div>
+                                <div class="attandeandencetable">
+                                    <table class="table table-hover">
+                                        <thead>
+                                            <th>Name</th>
+                                            <th>Attand time</th>
+                                            <th>Email</th>
+                                        </thead>
+                                        <tbody>
+                                        <?php
+                                            // Database connection
+                                            $connect = mysqli_connect('localhost', 'root', '', 'event_managment_db');
+
+                                            // Check database connection
+                                            if (!$connect) {
+                                                die('Connection failed: ' . mysqli_connect_error());
+                                            }
+
+                                            // Correct the SQL query (use backticks instead of single quotes for the table name)
+                                            $sql = "SELECT * FROM `attandence`";
+
+                                            // Execute the query
+                                            $result = $connect->query($sql);
+
+                                            // Check if there are rows returned
+                                            if ($result && $result->num_rows > 0) {
+                                                while ($row = $result->fetch_assoc()) {
+                                                    echo ("
+                                                        <tr>
+                                                            <td>" . htmlspecialchars($row['Name']) . "</td>
+                                                            <td>" . htmlspecialchars($row['time-in']) . "</td>
+                                                            <td>" . htmlspecialchars($row['Email']) . "</td>
+                                                        </tr>
+                                                    ");
+                                                }
+                                            } else {
+                                                echo ("<p>No attendance records found.</p>");
+                                            }
+
+                                            // Close the database connection
+                                            $connect->close();
+                                            ?>
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>      
+                        </div>
                 </section>
                 <section id="about" style="  background-color: #FFFAFA;">
                     <div class="about_Event" >
@@ -111,7 +244,7 @@
                                     <form method="post" action="Day/Day1.php" enctype="multipart/form-data">
                                         <h3>Day 1</h3>
                                         <label for="time"> Time:</label>
-                                        <input type="text" name="time" required><select name="AM_PM" required><option value="AM">AM</option><option value="PM">PM</option></select>
+                                        <input type="text" name="time" required><select name="AM_PM" ><option value="AM">AM</option><option value="PM">PM</option></select>
                                         <label for="Event_title">Event title:</label>
                                         <input type="text" name="Event_title"required>
 
@@ -200,38 +333,30 @@
                     </div>  
                 </section> 
                 <section id="Attendance"> 
-                    <center>
-                    <div class="detatil" Style="  padding-top:6%;">
-                        <h1>Mark attendance</h1>
-                        <div class="qrCodeView">      
-                        <input type="file" accept="image/*" id="fileInput" hidden>
-                    
-                        <div id="qr-reader" style="width: 48%; display: none;"></div>
-                        <video id="qrVideo" style="display: none;" autoplay></video>
-                        
-                        <!-- Icon Group for Upload and Scan -->
-                        <div class="iconGroup">
-                            <!-- Upload Icon -->    
-                            <i class="bi bi-upload" onclick="document.getElementById('fileInput').click();" title="Upload QR Code">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-upload" viewBox="0 0 16 16">
-                                    <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5"/>
-                                    <path d="M7.646 1.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 2.707V11.5a.5.5 0 0 1-1 0V2.707L5.354 4.854a.5.5 0 1 1-.708-.708z"/>
-                                </svg>
-                            </i>
-                            
-                            <!-- QR Code Scan Icon -->
-                            <i class="bi bi-qr-code-scan" title="Scan QR Code" onclick="window.location.replace('qrreader.php')">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-qr-code-scan" viewBox="0 0 16 16">
-                                    <path d="M0 .5A.5.5 0 0 1 .5 0h3a.5.5 0 0 1 0 1H1v2.5a.5.5 0 0 1-1 0zm12 0a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-1 0V1h-2.5a.5.5 0 0 1-.5-.5M.5 12a.5.5 0 0 1 .5.5V15h2.5a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5v-3a.5.5 0 0 1 .5-.5m15 0a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1 0-1H15v-2.5a.5.5 0 0 1 .5-.5M4 4h1v1H4z"/>
-                                    <path d="M7 2H2v5h5zM3 3h3v3H3zm2 8H4v1h1z"/>
-                                    <path d="M7 9H2v5h5zm-4 1h3v3H3zm8-6h1v1h-1z"/>
-                                    <path d="M9 2h5v5H9zm1 1v3h3V3zM8 8v2h1v1H8v1h2v-2h1v2h1v-1h2v-1h-3V8zm2 2H9V9h1zm4 2h-1v1h-2v1h3zm-4 2v-1H8v1z"/>
-                                    <path d="M12 9h2V8h-2z"/>
-                                </svg>
-                            </i>
+                    <div class="detatil">
+                        <Center>
+                        <h1>Mark attendance</h1><!-- this section get from internet--></Center>
+                        <form id="attandence" method="post" action="attandendence.php">
+                            <div id="data"></div>
+                            <button type="submit" onclick=""> ok</button>
+                        </form><Center>
+                        <div class="container">
+                            <div class="section">
+                                <div id="my-qr-reader">
+                                </div>
+                            </div>
                         </div>
-                    </div></center>
+                    </div>
+                    <div class="buffer" ></div>
+                    
+                        </Center>
+                        
+                        <script
+                            src="https://unpkg.com/html5-qrcode">
+                        </script>
+
                         <script src="../../Script/scannerscript.js"></script>
+                    
                 </section>       
             </div>
             <!-- /.row -->
@@ -285,6 +410,8 @@
             echo "No file uploaded. Please try again.";
         }
     }
+    
+    
 
 ?>  
   
