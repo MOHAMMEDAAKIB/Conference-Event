@@ -183,7 +183,7 @@
                                 while ($row = $result1->fetch_assoc()) {
                                 echo '  
                                             <th scope="row"style="align-items: center; background-color:#FFFAFA">
-                                                <div class="card mb-3" style="width: 14rem; align-items: center; background-color:#FFFAFA">
+                                                <div class="card mb-3" style="width: 15rem; align-items: center; background-color:#FFFAFA">
                                                     <div class="card-body">
                                                         <h5 class="card-title">'. htmlspecialchars($row['Time']) .' '. htmlspecialchars($row['AMPM']) .'</h5>
                                                         <p class="card-text">'. htmlspecialchars($row['Tittle']) .'</p>
@@ -233,7 +233,7 @@
 
                                         
                                             <th scope="row"style="align-items: center; background-color:#FFFAFA">
-                                                <div class="card mb-3" style="width: 14rem; align-items: center; background-color:#FFFAFA">
+                                                <div class="card mb-3" style="width: 15rem; align-items: center; background-color:#FFFAFA">
                                                     <div class="card-body">
                                                         <h5 class="card-title">'. htmlspecialchars($row['Time']) .' '. htmlspecialchars($row['AMPM']) .'</h5>
                                                         <p class="card-text">'. htmlspecialchars($row['Tittle']) .'</p>
@@ -283,7 +283,7 @@
                                 echo ' 
                                          
                                                 <th scope="row"style="align-items: center; background-color:#FFFAFA">
-                                                <div class="card mb-3" style="width: 14rem; align-items: center; background-color:#FFFAFA">
+                                                <div class="card mb-3" style="width: 15rem; align-items: center; background-color:#FFFAFA">
                                                     <div class="card-body">
                                                         <h5 class="card-title">'. htmlspecialchars($row['Time']) .' '. htmlspecialchars($row['AMPM']) .'</h5>
                                                         <p class="card-text">'. htmlspecialchars($row['Tittle']) .'</p>
