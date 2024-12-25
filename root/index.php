@@ -61,34 +61,45 @@
                 <h3>Just A Few Words </h3>
                 <h1>About The Event </h1>
                 <?php 
-                    // Data base conecton
-                    $con = mysqli_connect('localhost', 'root', '', 'event_managment_DB');
-                    if (!$con) {
-                        die('Connection failed:'. mysqli_connect_error());
-                    }
-                    $sql = 'SELECT * FROM `about`';
-                    $result1 = $con->query($sql);
+                    // Include the database connection file
+                    include ('conn.php');
 
+                    if (!$conn) {
+                        die('Connection failed: ' . mysqli_connect_error());
+                    }
+
+                    // SQL Query
+                    $sql = 'SELECT * FROM `about`';
+                    $result1 = $conn->query($sql);
+
+                    // Check if the query was successful
+                    if (!$result1) {
+                        die("Query failed: " . $conn->error);
+                    }
+
+                    // Display the results
                     if ($result1->num_rows > 0) {
                         while ($row = $result1->fetch_assoc()) {
-                        echo '
-                                <p>'. htmlspecialchars($row['about']) .' </p>
+                            echo '
+                                <p>' . htmlspecialchars($row['about']) . '</p>
                                 <div class="where">
                                     <h2>Where</h2>
-                                    <p>'. htmlspecialchars($row['plase']) .'</p>
+                                    <p>' . htmlspecialchars($row['plase']) . '</p>
                                 </div>
                                 <div class="when">
                                     <h2>When</h2>
-                                    <p>'. htmlspecialchars($row['Date']) .'</p>
-                                </div>  
-                        ';
+                                    <p>' . htmlspecialchars($row['Date']) . '</p>
+                                </div>
+                            ';
                         }
                     } else {
-                        echo '<p>No Speakers Found</p>';
+                        echo '<p>No Data Found</p>';
                     }
+
                     // Close the database connection
-                    $con->close();
+                    $conn->close();
                 ?>
+
             </div>
             <div class="rightside_set">
                 <div class="about2">
@@ -113,13 +124,13 @@
                     
                             <?php 
                             //  database connection                    
-                            $con = mysqli_connect('localhost', 'root', '', 'event_managment_DB');
-                            if (!$con) {
+                            include ('conn.php');
+                            if (!$conn) {
                                 die("Connection failed: " . mysqli_connect_error());
                             }
                             $sql1 = 'SELECT * FROM `Day1`';
                            
-                            $result1 = $con->query($sql1);
+                            $result1 = $conn->query($sql1);
 
                             if ($result1->num_rows > 0) {
                                 echo '<thead>
@@ -150,7 +161,7 @@
                                 echo '';
                             }
                             // Close the database connection
-                            $con->close();
+                            $conn->close();
                             ?> 
                         </tbody>     
                     </table>
@@ -159,13 +170,13 @@
                             
                             <?php 
                             //  database connection                    
-                            $con = mysqli_connect('localhost', 'root', '', 'event_managment_DB');
-                            if (!$con) {
+                            include ('conn.php');
+                            if (!$conn) {
                                 die("Connection failed: " . mysqli_connect_error());
                             }
                             $sql1 = 'SELECT * FROM `Day2`';
                            
-                            $result1 = $con->query($sql1);
+                            $result1 = $conn->query($sql1);
 
                             if ($result1->num_rows > 0) {
                                 echo '<thead>
@@ -197,7 +208,7 @@
                                 echo '';
                             }
                             // Close the database connection
-                            $con->close();
+                            $conn->close();
                             ?> 
                         </tbody>  
                     </table>
@@ -207,13 +218,13 @@
                      
                             <?php 
                             //  database connection                    
-                            $con = mysqli_connect('localhost', 'root', '', 'event_managment_DB');
-                            if (!$con) {
+                            include ('conn.php');
+                            if (!$conn) {
                                 die("Connection failed: ". mysqli_connect_error());
                             }
                             $sql1 = 'SELECT * FROM `Day3`';
                            
-                            $result1 = $con->query($sql1);
+                            $result1 = $conn->query($sql1);
 
                             if ($result1->num_rows > 0) {
                                 echo '<thead>
@@ -230,9 +241,7 @@
                                         <tbody>';
                                 while ($row = $result1->fetch_assoc()) {
                                 echo '  
-
-                                        
-                                            <th scope="row"style="align-items: center; background-color:#FFFAFA">
+                                        <th scope="row"style="align-items: center; background-color:#FFFAFA">
                                                 <div class="card mb-3" style="width: 15rem; align-items: center; background-color:#FFFAFA">
                                                     <div class="card-body">
                                                         <h5 class="card-title">'. htmlspecialchars($row['Time']) .' '. htmlspecialchars($row['AMPM']) .'</h5>
@@ -240,15 +249,13 @@
                                                         <p class="speeker">Speaker: '. htmlspecialchars($row['speekerName']) .'</p>   
                                                     </div>
                                                 </div> 
-                                            </th>
-                                         
-                                        ';
+                                            </th>';
                                 }
                             } else {
                                 echo '';
                             }
                             // Close the database connection
-                            $con->close();
+                            $conn->close();
                             ?> 
                         </tbody>    
                     </table>
@@ -258,13 +265,13 @@
                      
                             <?php 
                             //  database connection                    
-                            $con = mysqli_connect('localhost', 'root', '', 'event_managment_DB');
-                            if (!$con) {
+                            include ('conn.php');
+                            if (!$conn) {
                                 die("Connection failed: " . mysqli_connect_error());
                             }
                             $sql1 = 'SELECT * FROM `Day4`';
                            
-                            $result1 = $con->query($sql1);
+                            $result1 = $conn->query($sql1);
 
                             if ($result1->num_rows > 0) {
                                 echo '<thead>
@@ -298,7 +305,7 @@
                                 echo '';
                             }
                             // Close the database connection
-                            $con->close();
+                            $conn->close();
                             ?> 
                         </tbody>   
                     </table>
@@ -318,14 +325,14 @@
                     <?php 
                     //  database connection                    
 
-                    $con = mysqli_connect('localhost', 'root', '', 'event_managment_DB');
-                    if (!$con) {
+                    include ('conn.php');
+                    if (!$conn) {
                         die("Connection failed: " . mysqli_connect_error());
                     }
 
                 
                     $sql = 'SELECT * FROM `speeker`';
-                    $result = $con->query($sql);
+                    $result = $conn->query($sql);
 
                     if ($result->num_rows > 0) {
                 
@@ -346,7 +353,7 @@
                     }
 
                     // Close the database connection
-                    $con->close();
+                    $conn->close();
                     ?>
             </div>
         </section>

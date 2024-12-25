@@ -1,11 +1,10 @@
 <?php
 
 
-$connect = mysqli_connect('localhost', 'root', '', 'event_managment_db');
+include ('../../conn.php');
 
-
-if (!$connect) {
-    die("Connection failed: " . mysqli_connect_error());
+if (!$conn) {
+    die('Connection failed: ' . mysqli_connect_error());
 }
 
 // SQL DELETE query
@@ -16,24 +15,24 @@ $sql4 = "DELETE FROM `day4` ";
 $sql5 = "DELETE FROM `day5` ";
 
 // Execute the query
-if (mysqli_query($connect, $sql1)) {
+if (mysqli_query($conn, $sql1)) {
     echo "<script>alert('Day1 deleted successfully!');</script>";
-    if (mysqli_query($connect, $sql2)) {
+    if (mysqli_query($conn, $sql2)) {
         echo "<script>alert('Day2 deleted successfully!');</script>";
-        if (mysqli_query($connect, $sql3)) {
+        if (mysqli_query($conn, $sql3)) {
             echo "<script>alert('Day2 deleted successfully!');</script>";
-            if (mysqli_query($connect, $sql4)) {
+            if (mysqli_query($conn, $sql4)) {
                 echo "<script>alert('Day2 deleted successfully!');</script>";
-                if (mysqli_query($connect, $sql5)) {
+                if (mysqli_query($conn, $sql5)) {
                     echo "<script>alert('Day2 deleted successfully!');location.replace('Event_organize.php');</script>";
                 }
             }
         }
     }
 } else {
-    echo "Error deleting record: " . mysqli_error($connect);
+    echo "Error deleting record: " . mysqli_error($conn);
 }
 
 // Close the connection
-mysqli_close($connect);
+mysqli_close($conn);
 ?>

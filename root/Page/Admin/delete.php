@@ -1,23 +1,22 @@
 <?php
 
 
-$connect = mysqli_connect('localhost', 'root', '', 'event_managment_db');
+include ('../../conn.php');
 
-
-if (!$connect) {
-    die("Connection failed: " . mysqli_connect_error());
+if (!$conn) {
+    die('Connection failed: ' . mysqli_connect_error());
 }
 
 // SQL DELETE query
 $sql = "DELETE FROM `about` ";
 
 // Execute the query
-if (mysqli_query($connect, $sql)) {
+if (mysqli_query($conn, $sql)) {
     echo "<script>alert('Record deleted successfully!');location.replace('Event_organize.php');</script>";
 } else {
-    echo "Error deleting record: " . mysqli_error($connect);
+    echo "Error deleting record: " . mysqli_error($conn);
 }
 
 // Close the connection
-mysqli_close($connect);
+mysqli_close($conn);
 ?>

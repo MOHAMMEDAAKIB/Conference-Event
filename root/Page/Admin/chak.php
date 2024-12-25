@@ -19,15 +19,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $address = $dataArray[3];
 
             // Connect to the database
-            $connect = mysqli_connect('localhost', 'root', '', 'event_managment_db');
+            include ('../../conn.php');
 
-            if (!$connect) {
-                die("Connection failed: " . mysqli_connect_error());
+            if (!$conn) {
+                die('Connection failed: ' . mysqli_connect_error());
             }
 
             // Check if data exists in the database
             $sql = "SELECT * FROM your_table WHERE name = '$name' AND phone = '$phone' AND email = '$email' AND address = '$address'";
-            $result = mysqli_query($connect, $sql);
+            $result = mysqli_query($conn, $sql);
 
             if (mysqli_num_rows($result) > 0) {
                 echo "Data exists in the database.";
@@ -36,7 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             }
 
             // Close connection
-            mysqli_close($connect);
+            mysqli_close($conn);
         } else {
             echo "Invalid JSON data.";
         }

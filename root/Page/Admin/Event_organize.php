@@ -41,19 +41,19 @@
         <div class="collapse navbar-collapse navbar-ex1-collapse">
             <ul class="nav navbar-nav side-nav">
                 <li>
-                    <a href="#organize" data-toggle="collapse" data-target="#submenu-1"><i class="fa fa-fw fa-search"></i> organize </a>
+                    <a href="#organize" data-toggle="collapse" data-target="#submenu-1"><i class="fa fa-fw fa-star"></i> organize </a>
                 </li>
                 <li>
                     <a href="#about" data-toggle="collapse" data-target="#submenu-2"><i class="fa fa-fw fa-star"></i>  about </a>
                 </li>
                 <li>
-                    <a href="#Schedule"><i class="fa fa-fw fa-user-plus"></i>  Schedule</a>
+                    <a href="#Schedule"><i class="fa fa-fw fa-star"></i>  Schedule</a>
                 </li>
                 <li>
-                    <a href="#Speakers"><i class="fa fa-fw fa-paper-plane-o"></i>Speakers</a>
+                    <a href="#Speakers"><i class="fa fa-fw fa-star"></i>Speakers</a>
                 </li>
                 <li>
-                    <a href="#Attendance"><i class="fa fa-fw fa fa-question-circle"></i> Attendance</a>
+                    <a href="#Attendance"><i class="fa fa-fw fa-user-plus"></i> Attendance</a>
                 </li>
             </ul>
         </div>
@@ -72,17 +72,18 @@
                                 <div class="chart">
                                         <h3>Event Update </h3>
                                         <?php 
-                                            $connect = mysqli_connect('localhost', 'root', '', 'event_managment_db');
-                                            if (!$connect) {  
-                                                die("Connection failed: " . mysqli_connect_error());
-                                            } else {
+                                            include ('../../conn.php');
+
+                                            if (!$conn) {
+                                                die('Connection failed: ' . mysqli_connect_error());
+                                            }else {
                                                 // Queries to count rows in tables
                                                 $QRcount = "SELECT COUNT(*) AS row_count FROM customers_details";
                                                 $attanCount = "SELECT COUNT(*) AS row_count FROM attandence";
 
                                                 // Execute queries and fetch row counts
-                                                $result1 = $connect->query($QRcount);
-                                                $result2 = $connect->query($attanCount);
+                                                $result1 = $conn->query($QRcount);
+                                                $result2 = $conn->query($attanCount);
 
                                                 if ($result1 && $result2) {
                                                     $row1 = $result1->fetch_assoc();
@@ -90,7 +91,7 @@
 
                                                     // Check if a row already exists in `event_attandedence_detatil`
                                                     $checkQuery = "SELECT * FROM event_attandedence_detatil LIMIT 1";
-                                                    $checkResult = $connect->query($checkQuery);
+                                                    $checkResult = $conn->query($checkQuery);
 
                                                     if ($checkResult->num_rows > 0) {
                                                         // Update existing row without changing `avilable_seet`
@@ -98,8 +99,8 @@
                                                             UPDATE event_attandedence_detatil
                                                             SET qrcunt = '".$row1['row_count']."', attended_seet = '".$row2['row_count']."'
                                                         ";
-                                                        if (!mysqli_query($connect, $updateQuery)) {
-                                                            echo "Error updating data: " . mysqli_error($connect);
+                                                        if (!mysqli_query($conn, $updateQuery)) {
+                                                            echo "Error updating data: " . mysqli_error($conn);
                                                         }
                                                     } else {
                                                         // Insert new row (only if no data exists)
@@ -107,14 +108,14 @@
                                                             INSERT INTO event_attandedence_detatil (qrcunt, attended_seet) 
                                                             VALUES ('".$row1['row_count']."', '".$row2['row_count']."')
                                                         ";
-                                                        if (!mysqli_query($connect, $insertQuery)) {
-                                                            echo "Error inserting data: " . mysqli_error($connect);
+                                                        if (!mysqli_query($conn, $insertQuery)) {
+                                                            echo "Error inserting data: " . mysqli_error($conn);
                                                         }
                                                     }
 
                                                     // Calculate the total number of rows
                                                     $countQuery = "SELECT COUNT(*) AS total_rows FROM event_attandedence_detatil";
-                                                    $countResult = $connect->query($countQuery);
+                                                    $countResult = $conn->query($countQuery);
 
                                                     if ($countResult && $countResult->num_rows > 0) {
                                                         $countRow = $countResult->fetch_assoc();
@@ -122,7 +123,7 @@
 
                                                         // Fetch the last row using LIMIT and OFFSET
                                                         $sql1 = "SELECT * FROM `event_attandedence_detatil` LIMIT 1 OFFSET " . ($totalRows - 1);
-                                                        $result5 = $connect->query($sql1);
+                                                        $result5 = $conn->query($sql1);
 
                                                         if ($result5->num_rows > 0) {
                                                             $row = $result5->fetch_assoc();
@@ -141,7 +142,7 @@
                                             }
 
                                             // Close the database connection
-                                            mysqli_close($connect);
+                                            mysqli_close($conn);
                                             ?>
 
 
@@ -169,10 +170,9 @@
                                         <tbody>
                                         <?php
                                             // Database connection
-                                            $connect = mysqli_connect('localhost', 'root', '', 'event_managment_db');
+                                            include ('../../conn.php');
 
-                                            // Check database connection
-                                            if (!$connect) {
+                                            if (!$conn) {
                                                 die('Connection failed: ' . mysqli_connect_error());
                                             }
 
@@ -180,7 +180,7 @@
                                             $sql = "SELECT * FROM `attandence`";
 
                                             // Execute the query
-                                            $result = $connect->query($sql);
+                                            $result = $conn->query($sql);
 
                                             // Check if there are rows returned
                                             if ($result && $result->num_rows > 0) {
@@ -198,7 +198,7 @@
                                             }
 
                                             // Close the database connection
-                                            $connect->close();
+                                            $conn->close();
                                             ?>
 
                                         </tbody>
@@ -378,14 +378,15 @@
                 $image_data = file_get_contents($img_tmp_path);
 
                 // Connect to the database
-                $connect = mysqli_connect('localhost', 'root', '', 'event_managment_DB');
-                if (!$connect) {
-                    die("Connection failed: " . mysqli_connect_error());
-                }
+                include ('../../conn.php');
+
+                    if (!$conn) {
+                        die('Connection failed: ' . mysqli_connect_error());
+                    }
 
                 // Prepare the SQL query
                 $sql = "INSERT INTO `speeker` (Name, IMG_NAME, Images, Position) VALUES (?, ?, ?, ?)";
-                $stmt = $connect->prepare($sql);
+                $stmt = $conn->prepare($sql);
                 $stmt->bind_param("ssss", $name, $img_name, $image_data, $position);
 
                 if ($stmt->execute()) {
@@ -395,7 +396,7 @@
                 }
 
                 $stmt->close();
-                mysqli_close($connect);
+                mysqli_close($conn);
             } else {
                 echo "Please upload a valid image file.";
             }

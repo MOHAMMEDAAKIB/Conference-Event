@@ -117,7 +117,7 @@ INSERT INTO `customers_details` (`cus_ID`, `Name`, `phone_Number`, `Email`, `Add
 -- Table structure for table `day1`
 --
 
-DROP TABLE IF EXISTS `day1`;
+DROP TABLE IF EXISTS `day15`;
 CREATE TABLE IF NOT EXISTS `day1` (
   `Day1_ID` int NOT NULL AUTO_INCREMENT,
   `Time` varchar(10) NOT NULL,

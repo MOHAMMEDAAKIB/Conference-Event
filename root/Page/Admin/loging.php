@@ -4,10 +4,10 @@ $username = $_POST['user_name'];
 $password = $_POST['password'];
 
 // Connect to the database
-$connect = mysqli_connect('localhost', 'root', '', 'event_managment_db');
+include ('../../conn.php');
 
-if (!$connect) {
-    die("Connection failed: " . mysqli_connect_error());
+if (!$conn) {
+    die('Connection failed: ' . mysqli_connect_error());
 }
 
 // SQL queries
@@ -15,7 +15,7 @@ $sqlad = "SELECT * FROM admin_log_de WHERE user_Name = '$username' AND password 
 
 // Execute queries
 
-$ad = mysqli_query($connect, $sqlad);
+$ad = mysqli_query($conn, $sqlad);
 
 // Verify if rows were returned
 if (mysqli_num_rows($ad) > 0) {
@@ -26,5 +26,5 @@ if (mysqli_num_rows($ad) > 0) {
 }
 
 // Close the connection
-mysqli_close($connect);
+mysqli_close($conn);
 ?>
